@@ -1,0 +1,31 @@
+# Environment / secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Node
+node_modules/
+dist/
+build/
+.next/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Foundry/Hardhat
+cache/
+out/
+artifacts/
+typechain/
+broadcast/
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
