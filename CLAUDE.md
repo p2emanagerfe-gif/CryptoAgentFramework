@@ -11,14 +11,17 @@ This repo is the codebase for an autonomous, agent-run company operating in the 
 
 ## Subagents
 
-`.claude/agents/` contains 21 role-scoped subagents (Enterprise Orchestrator, Risk Committee, Smart Contract Review, On-chain Analytics, Regulatory Research, etc.), each with a defined permission tier and tool allowlist. Claude Code loads these automatically. Use them by name for domain-specific work rather than one general prompt — e.g. route contract-review requests to `smart-contract-review`, treasury questions to `treasury-ops` (proposal-only — it has no signing rights), and anything ambiguous through `enterprise-orchestrator` first.
+`.claude/agents/` contains 22 role-scoped subagents (Enterprise Orchestrator, Risk Committee, Smart Contract Review, On-chain Analytics, Regulatory Research, Mint Execution, etc.), each with a defined permission tier and tool allowlist. Claude Code loads these automatically. Use them by name for domain-specific work rather than one general prompt — e.g. route contract-review requests to `smart-contract-review`, treasury questions to `treasury-ops` (proposal-only — it has no signing rights), minting work to `mint-execution`, and anything ambiguous through `enterprise-orchestrator` first.
 
 Two agents (`treasury-ops`, `devops-sre`) are intentionally scoped to draft/propose-only because they don't yet have real signer or deploy credentials wired in. Don't expand their tool access without updating their permission tier and adding the corresponding real integration — see docs/AOS_Agent_Network_v1.md Section 5.
+
+`mint-execution` is different from those two: it does have real, working execution code (`mint-agent/`), gated by `approved-mints.json` and defaulting to dry-run. Never generate wallets on the fly for it, never help it route around CAPTCHA/anti-bot checks, and never flip a target to `dryRun: false` without that being a deliberate, reviewed decision — see docs/AOS_Agent_Network_v1.md Section 8 and `mint-agent/README.md`.
 
 ## Repo structure (grows as the codebase does)
 
 - `.claude/agents/` — subagent definitions (the AOS agent network)
 - `docs/` — AOS framework and agent-network spec
+- `mint-agent/` — working NFT minting engine (see Section 8 of the spec doc)
 - `contracts/` — smart contracts (to be added)
 - `backend/` — game/economy backend services (to be added)
 - `analytics/` — on-chain analytics and Dune query definitions (to be added)

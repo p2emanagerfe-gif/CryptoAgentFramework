@@ -612,3 +612,34 @@ Run on 2026-08-12 to verify the network functions, not just reads well on paper.
 **Orchestrator synthesis:** the two independent findings combine into a real, actionable opportunity note: *ApeChain shows a genuine short-term demand spike worth fast BD outreach, but any reward-token or royalty mechanism built around it must avoid profit-implying marketing language given active US/EU securities scrutiny, and the buyer-growth number needs a wash-trade verification pass before it's treated as durable.* That last step — verify via `nft.wash_trades` — is exactly the kind of independent-recomputation handoff Section 9-A-3 requires before this reaches Risk Committee as a real proposal.
 
 This is a small slice (2 of 21 agents, one synthesis step) but it demonstrates the pattern the whole network runs on: parallel specialist research → cited, confidence-scored findings → orchestrator synthesis → named next owner for the follow-up, rather than a single agent guessing across domains it isn't specialized in.
+
+---
+
+## 8. Post-MVP addition: Mint Execution Agent
+
+Added 2026-08-13, in response to a direct build request. Not part of the original MVP-21 — the company's 22nd agent, and its first agent with a real, working, tested implementation (the other 21 are specs/subagent definitions; this one ships actual executable code in `mint-agent/`).
+
+**Layer:** NFTs, Marketplace & Creator Ecosystem (2.7) / Execution Layer (4)
+**Permission tier:** Tier 2 — execute low-risk, bounded by a pre-approved wallet list and per-target spend/gas caps
+**Reports to:** Risk Committee Agent (approves each target's `approved-mints.json` entry and any live/`dryRun:false` flip), Treasury Ops Agent (wallet funding/budget)
+**Works with:** Drop Strategy Agent, Anti-Wash-Trade Agent, Audit & Evidence Agent, Smart Contract Review Agent (pre-mint contract review)
+**Threat exposure:** Low-Medium — reads target contract state/on-chain data, does not process untrusted human-authored text
+
+**Mandate:** Executes fast, competitive NFT mint transactions from pre-approved company wallets across EVM chains (built for Abstract, works on any EVM chain), with hard-coded fairness and safety guardrails around allowlist mints, gas ceilings, and dry-run-by-default execution.
+
+### Why this agent looks the way it does
+
+The build request was "develop the skill of minting NFTs quickly using wallet addresses." Speed itself — competitive gas pricing, pre-simulation, multi-RPC fallback, parallel submission across wallets you own — is a legitimate, widely-practiced execution skill, and that's what this agent does well. Two adjacent things it deliberately does **not** do, because they cross from "fast" into "unfair" or "evasive": generate throwaway wallets to impersonate multiple distinct community members against a per-wallet allowlist cap, and defeat CAPTCHA/proof-of-humanity checks a project has put up specifically to keep bots like this out. Both are encoded as hard refusals in `mint-agent/src/policyGuard.js`, not just documentation — see the code for the enforcement.
+
+### Fairness posture: public-fcfs vs. allowlist
+
+Every mint target is declared as one of two types in `approved-mints.json`:
+
+- **`public-fcfs`** — open, first-come-first-served or gas-auction mints. Racing here with multiple company wallets isn't taking allocation from anyone; it's the same game everyone else is playing, executed well.
+- **`allowlist`** — capped at one mint per approved wallet, specifically to spread allocation across distinct community members. Using more than one company wallet here works mechanically but cuts against the cap's intent. The tool requires an explicit `"acknowledgeMultiWalletAllowlist": true` on any such target before it will use more than one wallet against it — a deliberate, logged speed bump so it's always a conscious call, not a default.
+
+### Implementation
+
+`mint-agent/` — Node.js + ethers.js v6. Key pieces: `policyGuard.js` (the fairness/safety checks above, enforced pre-flight — 8/8 unit tests passing), `gasStrategy.js` (competitive pricing with a hard `maxGasPriceGwei` ceiling — verified to actually clamp, not just cap on paper), `trigger.js` (immediate / block-height / timestamp / poll-contract-state firing), `mintRunner.js` (per-wallet simulate → estimate → send → confirm, parallel across wallets, full JSONL audit log). Everything defaults to `dryRun: true`; nothing broadcasts a real transaction until a human flips that flag for that specific target. End-to-end tested against a local mock RPC (dry run, gas-cap enforcement, and full live send/confirm all verified working) — see `mint-agent/test/`.
+
+**Not yet built:** a company-wide spend cap read from Treasury Ops's approved budget (currently each target's `valueEth` × wallet count is trusted from the config file alone) — noted in `mint-agent/README.md` as the next hardening step before this handles serious capital.

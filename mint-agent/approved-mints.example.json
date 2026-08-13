@@ -1,0 +1,19 @@
+{
+  "_comment": "Copy to approved-mints.json. Nothing runs live until dryRun is explicitly set to false for a target. This file is your Risk-Committee-equivalent sign-off record — keep it under version control so changes are reviewable.",
+  "example-drop": {
+    "chainId": 2741,
+    "rpcUrls": ["https://api.mainnet.abs.xyz"],
+    "contractAddress": "0xYourTargetContractAddressHere",
+    "mintFunction": "mint(uint256)",
+    "mintArgs": [1],
+    "valueEth": "0.01",
+    "mintType": "public-fcfs",
+    "perWalletLimit": 1,
+    "walletsToUse": ["treasury-mint-01", "treasury-mint-02"],
+    "acknowledgeMultiWalletAllowlist": false,
+    "maxGasPriceGwei": 50,
+    "priorityFeeMultiplier": 1.5,
+    "trigger": { "mode": "immediate" },
+    "dryRun": true
+  }
+}

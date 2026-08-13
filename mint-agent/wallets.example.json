@@ -1,0 +1,4 @@
+[
+  { "label": "treasury-mint-01", "privateKeyEnvVar": "PK_TREASURY_MINT_01" },
+  { "label": "treasury-mint-02", "privateKeyEnvVar": "PK_TREASURY_MINT_02" }
+]

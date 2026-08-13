@@ -1,0 +1,14 @@
+{
+  "name": "mint-execution-agent",
+  "version": "0.1.0",
+  "description": "Fast, multi-wallet NFT minting engine for EVM chains (AOS mint-execution agent implementation).",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "run": "node src/index.js run"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "ethers": "^6.13.4"
+  }
+}
