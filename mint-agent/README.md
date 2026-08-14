@@ -2,6 +2,12 @@
 
 A fast, multi-wallet NFT minting engine for EVM chains (built/tested for Abstract, works on any EVM chain). This is the working implementation behind the `mint-execution` subagent in `.claude/agents/`.
 
+## Finding and scoping new mint targets
+
+Don't hand-fill `approved-mints.json` entries from memory or a single tweet. The `mint-intelligence` subagent (`.claude/agents/mint-intelligence.md`) researches a target mint across multiple independent sources — the project's own site, the chain's official docs, its block explorer, NFT drop calendars, launchpads — and drafts a confidence-graded entry into `approved-mints.example.json` with a `_verification` block documenting exactly what it confirmed, what it didn't, and what a human needs to check before the entry is trustworthy. It never sets `dryRun: false`, never touches `wallets.json`, and never guesses a truncated contract address or an unconfirmed mint function — those come back explicitly flagged as unresolved rather than filled in with a plausible guess.
+
+Run `node src/validateTarget.js approved-mints.example.json` after any new draft — it checks structure (valid address format, required fields, `dryRun` still `true`) and warns on anything under-documented, before a human even opens the file to review it.
+
 ## What this is — and isn't
 
 This tool is built for **speed and reliability**, using wallets your company already owns: competitive gas pricing, transaction pre-simulation, multi-RPC fallback, and parallel submission across your configured wallets so you're not manually clicking mint buttons and losing to bots that aren't.

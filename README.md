@@ -4,9 +4,9 @@ An agent-run company (no humans in the operating loop) for the NFT + DeFi + Web3
 
 ## What's in this repo right now
 
-- **`.claude/agents/`** — 22 deployable Claude Code subagents covering orchestration, governance, finance, product, engineering/security, live ops, NFT/marketplace, community/trust & safety, growth, data/analytics, agent QA, and mint execution. Drop-in compatible with [Claude Code](https://docs.claude.com/en/docs/claude-code) — it loads them automatically from this folder.
-- **`docs/`** — the full agent-network specification, including a worked live-demo transcript of agents collaborating on real research tasks (a market-opportunity scan and a Gigaverse/Abstract analysis).
-- **`mint-agent/`** — a real, tested, working NFT minting engine (fast multi-wallet execution across EVM chains) operated by the `mint-execution` subagent. Dry-run by default; see `mint-agent/README.md` for its fairness/safety guardrails before using it.
+- **`.claude/agents/`** — 23 deployable Claude Code subagents covering orchestration, governance, finance, product, engineering/security, live ops, NFT/marketplace, community/trust & safety, growth, data/analytics, agent QA, mint execution, and mint research. Drop-in compatible with [Claude Code](https://docs.claude.com/en/docs/claude-code) — it loads them automatically from this folder.
+- **`docs/`** — the full agent-network specification, including worked live-demo transcripts of agents collaborating on real research tasks (a market-opportunity scan, a Gigaverse/Abstract analysis, and a live Robinhood Chain mint-target research run).
+- **`mint-agent/`** — a real, tested, working NFT minting engine (fast multi-wallet execution across EVM chains) operated by `mint-execution`, plus `mint-intelligence`, which researches new targets and drafts confidence-graded entries for it. Dry-run by default; see `mint-agent/README.md` for fairness/safety/verification guardrails before using either.
 - **`CLAUDE.md`** — project-level instructions Claude Code reads automatically; defines the non-negotiables and working conventions for this repo.
 
 ## Using the agents

@@ -1,5 +1,6 @@
 {
-  "_comment": "Copy to approved-mints.json. Nothing runs live until dryRun is explicitly set to false for a target. This file is your Risk-Committee-equivalent sign-off record — keep it under version control so changes are reviewable.",
+  "_comment": "Copy to approved-mints.json. Nothing runs live until dryRun is explicitly set to false for a target. This file is your Risk-Committee-equivalent sign-off record — keep it under version control so changes are reviewable. Entries with a _verification block were drafted by the mint-intelligence agent from live research and still need a human to close out anything under _verification.unresolvedFields before they're trustworthy, let alone before dryRun ever goes false.",
+
   "example-drop": {
     "chainId": 2741,
     "rpcUrls": ["https://api.mainnet.abs.xyz"],
@@ -15,5 +16,53 @@
     "priorityFeeMultiplier": 1.5,
     "trigger": { "mode": "immediate" },
     "dryRun": true
+  },
+
+  "gogh-punks-robinhood": {
+    "_comment": "Researched by mint-intelligence on 2026-08-13. See _verification below before using this for anything beyond a dry run.",
+    "chainId": 4663,
+    "rpcUrls": [
+      "https://rpc.mainnet.chain.robinhood.com"
+    ],
+    "contractAddress": "0xe0f92b3b0e6ded3654177fe3809cd300e5ffadf6",
+    "mintFunction": null,
+    "mintArgs": null,
+    "valueEth": "0.003",
+    "mintType": "public-fcfs",
+    "perWalletLimit": 20,
+    "walletsToUse": [],
+    "acknowledgeMultiWalletAllowlist": false,
+    "maxGasPriceGwei": 5,
+    "priorityFeeMultiplier": 1.5,
+    "trigger": {
+      "mode": "timestamp",
+      "value": 1786749300,
+      "_comment": "2026-08-14 23:15 UTC per the project's announced mint time — reconfirm close to mint time, drop times shift often."
+    },
+    "dryRun": true,
+    "_verification": {
+      "researchedAt": "2026-08-13",
+      "chainInfoConfidence": "High",
+      "chainInfoSources": [
+        "https://docs.robinhood.com/chain/connecting",
+        "https://chainlist.org/chain/4663"
+      ],
+      "mintMechanicsConfidence": "Medium-High",
+      "mintMechanicsSources": [
+        "https://nftcalendar.io/event/gogh-punks-public-mi/"
+      ],
+      "contractAddressConfidence": "Medium",
+      "contractAddressSources": [
+        "https://api.opensea.io/api/v2/collections/gogh-punks-255843210",
+        "https://nftcalendar.io/event/gogh-punks-public-mi/ (displayed truncated there; full value cross-checked via the OpenSea API listing)"
+      ],
+      "unresolvedFields": [
+        "mintFunction/mintArgs — not confirmed against verified contract source; do not assume mint(uint256). Pull the real signature from the block explorer's verified-source tab (https://robinhoodchain.blockscout.com) once the contract is up, or from the project's own docs if published.",
+        "contractAddress — both sources found ultimately trace through OpenSea's listing data, which is not fully independent verification. Could not reach the project's own site (https://goghpunks.xyz/ failed to load) or confirm verified-contract status on the block explorer directly. Treat as a strong lead, not a confirmed address.",
+        "walletsToUse is intentionally empty — mint-intelligence never populates this; a human adds real wallet labels here."
+      ],
+      "humanVerificationRequired": true,
+      "notes": "Robinhood Chain itself (chain ID 4663, RPC, explorer) is confirmed from Robinhood's own docs — high confidence. Mint schedule/price/supply/per-wallet-cap came from a drop-calendar aggregator (nftcalendar.io), which is reasonably reliable for logistics but not for a security-critical field like a contract address. Before this ever runs live: (1) open https://goghpunks.xyz/ yourself and confirm the contract address matches, (2) confirm the contract shows as verified on https://robinhoodchain.blockscout.com and pull the real mint function from its source, (3) only then consider flipping dryRun. This is exactly the kind of target where a fast, convincing secondary source (aggregator + marketplace listing) is not the same as verifying the project's own claim."
+    }
   }
 }

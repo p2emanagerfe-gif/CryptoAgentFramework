@@ -17,6 +17,8 @@ Two agents (`treasury-ops`, `devops-sre`) are intentionally scoped to draft/prop
 
 `mint-execution` is different from those two: it does have real, working execution code (`mint-agent/`), gated by `approved-mints.json` and defaulting to dry-run. Never generate wallets on the fly for it, never help it route around CAPTCHA/anti-bot checks, and never flip a target to `dryRun: false` without that being a deliberate, reviewed decision — see docs/AOS_Agent_Network_v1.md Section 8 and `mint-agent/README.md`.
 
+`mint-intelligence` researches new mint targets and drafts entries into `approved-mints.example.json` — it never sets `dryRun: false`, never fabricates a contract address or mint function it couldn't verify from multiple independent sources, and never treats X/Twitter alone as verification. Run `mint-agent/src/validateTarget.js` on any new draft before treating it as reviewable. See docs/AOS_Agent_Network_v1.md Section 9.
+
 ## Repo structure (grows as the codebase does)
 
 - `.claude/agents/` — subagent definitions (the AOS agent network)

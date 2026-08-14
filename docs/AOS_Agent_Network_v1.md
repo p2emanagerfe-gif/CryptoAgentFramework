@@ -643,3 +643,31 @@ Every mint target is declared as one of two types in `approved-mints.json`:
 `mint-agent/` — Node.js + ethers.js v6. Key pieces: `policyGuard.js` (the fairness/safety checks above, enforced pre-flight — 8/8 unit tests passing), `gasStrategy.js` (competitive pricing with a hard `maxGasPriceGwei` ceiling — verified to actually clamp, not just cap on paper), `trigger.js` (immediate / block-height / timestamp / poll-contract-state firing), `mintRunner.js` (per-wallet simulate → estimate → send → confirm, parallel across wallets, full JSONL audit log). Everything defaults to `dryRun: true`; nothing broadcasts a real transaction until a human flips that flag for that specific target. End-to-end tested against a local mock RPC (dry run, gas-cap enforcement, and full live send/confirm all verified working) — see `mint-agent/test/`.
 
 **Not yet built:** a company-wide spend cap read from Treasury Ops's approved budget (currently each target's `valueEth` × wallet count is trusted from the config file alone) — noted in `mint-agent/README.md` as the next hardening step before this handles serious capital.
+
+---
+
+## 9. Post-MVP addition: Mint Intelligence Agent
+
+Added 2026-08-13, alongside a real research run against a live target. The company's 23rd agent.
+
+**Layer:** NFTs, Marketplace & Creator Ecosystem (2.7), paired with Mint Execution Agent
+**Permission tier:** Tier 0 — read-only research; never executes, never approves
+**Reports to:** Risk Committee Agent (its output feeds that decision, never replaces it)
+**Works with:** Mint Execution Agent (consumes promoted drafts), Regulatory Research Agent, Smart Contract Review Agent
+**Threat exposure:** High — browses the open web and reads project marketing content by design; every claim a page makes about itself ("verified," "official") is treated as data to cross-check, never as ground truth
+
+**Mandate:** Research a target NFT mint across multiple independent sources — not just X/Twitter — and draft a fully-cited, confidence-graded entry for `mint-agent/approved-mints.example.json`. Never fabricates a field it couldn't verify; never sets `dryRun: false`; never touches `wallets.json`.
+
+### Why "beyond X" mattered here
+
+The build request specifically noted that X/Twitter alone isn't enough — impersonation and copycat collections are common enough in this space that a convincing account proves nothing about a contract address. The agent's sourcing hierarchy: the project's own site first, then the chain's official docs and block explorer (verification status, deployer history), then NFT drop calendars/launchpads for logistics, with marketplace listings and social accounts as cross-checks rather than sources of truth.
+
+### Live test run: Robinhood Chain / Gogh Punks
+
+Robinhood Chain turned out to be real and current — Robinhood's own Arbitrum-Orbit-based L2, mainnet launched July 2026 (chain ID 4663, confirmed from `docs.robinhood.com` — High confidence). The agent found an actual live upcoming mint, **Gogh Punks** (10,000 pixel portraits, 0.003 ETH, 20/wallet cap, minting Aug 14 2026), sourced from an NFT drop calendar.
+
+Where it correctly stopped short: the calendar page displayed the contract address truncated (`0xe0f9....5ffadf6`). Rather than guess the missing characters, it cross-checked against the OpenSea API, which returned the full address and matched the visible prefix/suffix — but flagged that both sources ultimately trace through OpenSea's own listing, which isn't full independent verification, and that the project's own site failed to load during research. The mint function/ABI was left `null` rather than assumed. The resulting entry in `approved-mints.example.json` is genuinely useful — chain config, price, supply, and timing are solid — but is explicitly marked `humanVerificationRequired: true` with the exact two steps needed (check `goghpunks.xyz` directly, confirm verified-contract status on the block explorer) before anyone should even consider it for a live run.
+
+### Implementation
+
+No separate executable — this agent's work *is* live research reasoning plus writing structured output, so it's a subagent (system prompt), not a script, unlike Mint Execution. `mint-agent/src/validateTarget.js` provides the machine-checkable half: structural validation (valid address format, required fields present, `dryRun` still `true`) that runs against any draft before a human reviews it — reused across both agents' outputs.
