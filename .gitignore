@@ -1,7 +1,9 @@
 # Environment / secrets
 .env
 .env.*
+*.env
 !.env.example
+!*.env.example
 *.pem
 *.key
 
@@ -29,3 +31,14 @@ broadcast/
 Thumbs.db
 .vscode/
 .idea/
+
+# mint-agent runtime state (machine-local, not shared repo history)
+mint-agent/logs/
+mint-agent/state/
+mint-agent/bridge/requests/
+mint-agent/bridge/responses/
+mint-agent/bridge/processed/
+mint-agent/bridge/*.jsonl
+
+# bagwork-agent runtime state (machine-local, not shared repo history)
+bagwork-agent/logs/

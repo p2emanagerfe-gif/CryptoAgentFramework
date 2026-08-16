@@ -1,0 +1,13 @@
+{
+  "name": "bagwork-agent",
+  "version": "0.1.0",
+  "description": "Content + posting engine for 'bag work' (meme/narrative content about projects the company holds a position in), gated by a compliance guard and dry-run-by-default execution (AOS bag-work-meme / bag-work-narrative / marketing-compliance agents).",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5"
+  }
+}

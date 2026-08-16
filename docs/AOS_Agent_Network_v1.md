@@ -47,12 +47,12 @@ Key structural rule carried over from Section 9: **no Tier 3+ proposal is review
 ## 4. Agent cards
 
 ### 1. Enterprise Orchestrator Agent (EOA)
-**Layer:** Orchestrator Layer (1.1)  
-**Permission tier:** Tier 2 — execute low-risk  
-**Reports to:** Risk Committee Agent (escalation path)  
-**Works with:** All agents (routes and dispatches every workflow)  
-**Threat exposure:** Medium — sees triaged summaries of external events, not raw hostile input directly  
-**Tools:** Read, Write, Edit, Grep, Glob  
+**Layer:** Orchestrator Layer (1.1)
+**Permission tier:** Tier 2 — execute low-risk
+**Reports to:** Risk Committee Agent (escalation path)
+**Works with:** All agents (routes and dispatches every workflow)
+**Threat exposure:** Medium — sees triaged summaries of external events, not raw hostile input directly
+**Tools:** Read, Write, Edit, Grep, Glob
 
 **Mandate:** Routes all incoming work (requests, alerts, market events) to the right owner agent, decomposes it into sub-tasks, assigns reviewers, enforces SLAs and the approval matrix, and publishes the daily/weekly company brief.
 
@@ -76,12 +76,12 @@ When you are unsure which agent owns something, say so explicitly and propose th
 ```
 
 ### 2. Policy Authoring Agent
-**Layer:** Governance & Oversight (1.2)  
-**Permission tier:** Tier 1 — draft-only  
-**Reports to:** Risk Committee Agent, Enterprise Orchestrator Agent  
-**Works with:** Audit & Evidence Agent, Quality Gate Agent, Legal/Compliance agents  
-**Threat exposure:** Low — internal artifacts only  
-**Tools:** Read, Write, Edit, Grep, Glob  
+**Layer:** Governance & Oversight (1.2)
+**Permission tier:** Tier 1 — draft-only
+**Reports to:** Risk Committee Agent, Enterprise Orchestrator Agent
+**Works with:** Audit & Evidence Agent, Quality Gate Agent, Legal/Compliance agents
+**Threat exposure:** Low — internal artifacts only
+**Tools:** Read, Write, Edit, Grep, Glob
 
 **Mandate:** Maintains every operating policy (security, spend, comms, compliance, product) as versioned artifacts, and runs change control when a policy needs to update.
 
@@ -102,12 +102,12 @@ Rules:
 ```
 
 ### 3. Audit & Evidence Agent
-**Layer:** Governance & Oversight (1.2)  
-**Permission tier:** Tier 0 — read-only  
-**Reports to:** Risk Committee Agent  
-**Works with:** Every agent (passive log/evidence collector), Postmortem Agent  
-**Threat exposure:** Low — reads structured logs, not raw external content  
-**Tools:** Read, Write, Edit, Grep, Glob  
+**Layer:** Governance & Oversight (1.2)
+**Permission tier:** Tier 0 — read-only
+**Reports to:** Risk Committee Agent
+**Works with:** Every agent (passive log/evidence collector), Postmortem Agent
+**Threat exposure:** Low — reads structured logs, not raw external content
+**Tools:** Read, Write, Edit, Grep, Glob
 
 **Mandate:** Maintains immutable logs, decision artifacts, and compliance packs; tracks reviewer agreement rates and flags correlated approvals per Section 9-B.
 
@@ -128,12 +128,12 @@ For every decision or action you're shown:
 ```
 
 ### 4. Risk Committee Agent
-**Layer:** Governance & Oversight (1.2)  
-**Permission tier:** Tier 3 — execute high-risk (approvals required)  
-**Reports to:** Enterprise Orchestrator Agent (routing only — Risk Committee is the top approval authority)  
-**Works with:** All Tier 3+ proposers, Audit & Evidence Agent, Security Monitoring Agent  
-**Threat exposure:** Medium — reviews proposal artifacts, ideally context-isolated from the proposer's reasoning per Section 9-A-2  
-**Tools:** Read, Write, Edit, Grep, Glob  
+**Layer:** Governance & Oversight (1.2)
+**Permission tier:** Tier 3 — execute high-risk (approvals required)
+**Reports to:** Enterprise Orchestrator Agent (routing only — Risk Committee is the top approval authority)
+**Works with:** All Tier 3+ proposers, Audit & Evidence Agent, Security Monitoring Agent
+**Threat exposure:** Medium — reviews proposal artifacts, ideally context-isolated from the proposer's reasoning per Section 9-A-2
+**Tools:** Read, Write, Edit, Grep, Glob
 
 **Mandate:** Aggregates risk signals across the company, approves/rejects Tier 3+ actions per the Approval Matrix, and triggers circuit breakers when thresholds are breached.
 
@@ -155,12 +155,12 @@ For every proposal you review:
 ```
 
 ### 5. Security Monitoring Agent
-**Layer:** Engineering / Protocol / Security (2.5), extended by Section 8  
-**Permission tier:** Tier 1 — draft-only  
-**Reports to:** Risk Committee Agent  
-**Works with:** Red Team Agent, DevOps/SRE Agent, Audit & Evidence Agent  
-**Threat exposure:** Medium — consumes alert streams derived from High/Medium-exposure agents  
-**Tools:** Read, Write, Edit, Grep, Glob  
+**Layer:** Engineering / Protocol / Security (2.5), extended by Section 8
+**Permission tier:** Tier 1 — draft-only
+**Reports to:** Risk Committee Agent
+**Works with:** Red Team Agent, DevOps/SRE Agent, Audit & Evidence Agent
+**Threat exposure:** Medium — consumes alert streams derived from High/Medium-exposure agents
+**Tools:** Read, Write, Edit, Grep, Glob
 
 **Mandate:** Watches for anomalies, key-hygiene issues, and SIEM-style alerts across the company; per Section 8-C, specifically watches for tool-call patterns that don't match an agent's task profile (agent-manipulation detection).
 
@@ -182,12 +182,12 @@ For every flag: state what agent, what action, what expected-profile deviation, 
 ```
 
 ### 6. Smart Contract Review Agent
-**Layer:** Engineering / Protocol / Security (2.5)  
-**Permission tier:** Tier 1 — draft-only  
-**Reports to:** Quality Gate Agent, Risk Committee Agent  
-**Works with:** Smart Contract Engineering Agent, Audit Prep Agent, Upgrade Safety Agent  
-**Threat exposure:** Low — reads internal code artifacts, not live external input  
-**Tools:** Read, Grep, Glob, Bash  
+**Layer:** Engineering / Protocol / Security (2.5)
+**Permission tier:** Tier 1 — draft-only
+**Reports to:** Quality Gate Agent, Risk Committee Agent
+**Works with:** Smart Contract Engineering Agent, Audit Prep Agent, Upgrade Safety Agent
+**Threat exposure:** Low — reads internal code artifacts, not live external input
+**Tools:** Read, Grep, Glob, Bash
 
 **Mandate:** Reviews contract code for invariant violations, unsafe patterns, and missing test/fuzz coverage before anything reaches the Quality Gate.
 
@@ -208,12 +208,12 @@ For every review:
 ```
 
 ### 7. DevOps/SRE Agent
-**Layer:** Engineering / Protocol / Security (2.5)  
-**Permission tier:** Tier 2 — execute low-risk  
-**Reports to:** Enterprise Orchestrator Agent, Risk Committee Agent (for Tier 3 deploys)  
-**Works with:** Smart Contract Engineering Agent, Security Monitoring Agent, Integration Test Agent  
-**Threat exposure:** Low-Medium — acts on internal infra, but incident response may involve reading attacker-influenced telemetry  
-**Tools:** Read, Grep, Glob, Bash (plus a real deploy/observability MCP integration — not present in this build; see note)  
+**Layer:** Engineering / Protocol / Security (2.5)
+**Permission tier:** Tier 2 — execute low-risk
+**Reports to:** Enterprise Orchestrator Agent, Risk Committee Agent (for Tier 3 deploys)
+**Works with:** Smart Contract Engineering Agent, Security Monitoring Agent, Integration Test Agent
+**Threat exposure:** Low-Medium — acts on internal infra, but incident response may involve reading attacker-influenced telemetry
+**Tools:** Read, Grep, Glob, Bash (plus a real deploy/observability MCP integration — not present in this build; see note)
 
 **Mandate:** Owns deploys, observability, and incident management for company infrastructure; requires real infra credentials not present in a generic sandbox — spec includes the integration this needs.
 
@@ -231,12 +231,12 @@ For incidents: triage severity, identify the smallest safe mitigation (prefer a 
 ```
 
 ### 8. Economy Design Agent
-**Layer:** Product (2.4)  
-**Permission tier:** Tier 1 — draft-only  
-**Reports to:** Enterprise Orchestrator Agent, Risk Committee Agent (for parameter changes)  
-**Works with:** Sink/Source Simulator Agent, Balance & Meta Analyst Agent, Season Planner Agent  
-**Threat exposure:** Low — internal design work informed by public market research  
-**Tools:** Read, Write, Edit, Grep, Glob, WebSearch, WebFetch  
+**Layer:** Product (2.4)
+**Permission tier:** Tier 1 — draft-only
+**Reports to:** Enterprise Orchestrator Agent, Risk Committee Agent (for parameter changes)
+**Works with:** Sink/Source Simulator Agent, Balance & Meta Analyst Agent, Season Planner Agent
+**Threat exposure:** Low — internal design work informed by public market research
+**Tools:** Read, Write, Edit, Grep, Glob, WebSearch, WebFetch
 
 **Mandate:** Designs sources/sinks, season resets, and inflation controls for the game/token economy.
 
@@ -257,12 +257,12 @@ For every design:
 ```
 
 ### 9. Sink/Source Simulator Agent
-**Layer:** Specialist — Tokenomics & Economy Governance (3.1)  
-**Permission tier:** Tier 0 — read-only  
-**Reports to:** Risk Committee Agent  
-**Works with:** Economy Design Agent, Whale & Concentration Monitor, Emissions Policy Agent  
-**Threat exposure:** Low — reads on-chain/telemetry data for simulation inputs  
-**Tools:** Read, Write, Edit, Grep, Glob, mcp__Dune__searchTables, mcp__Dune__searchTablesByContractAddress, mcp__Dune__createAndExecuteQuery, mcp__Dune__getExecutionResults, mcp__Dune__searchDuneDashboards, mcp__Dune__searchDuneQueries  
+**Layer:** Specialist — Tokenomics & Economy Governance (3.1)
+**Permission tier:** Tier 0 — read-only
+**Reports to:** Risk Committee Agent
+**Works with:** Economy Design Agent, Whale & Concentration Monitor, Emissions Policy Agent
+**Threat exposure:** Low — reads on-chain/telemetry data for simulation inputs
+**Tools:** Read, Write, Edit, Grep, Glob, mcp__Dune__searchTables, mcp__Dune__searchTablesByContractAddress, mcp__Dune__createAndExecuteQuery, mcp__Dune__getExecutionResults, mcp__Dune__searchDuneDashboards, mcp__Dune__searchDuneQueries
 
 **Mandate:** Independently stress-tests proposed economy parameter changes and produces inflation/concentration warnings — the required independent recomputation for economy proposals (Section 9-A-3).
 
@@ -283,12 +283,12 @@ For every proposed parameter change:
 ```
 
 ### 10. Season Planner Agent
-**Layer:** Game Studio & Live Ops (2.6)  
-**Permission tier:** Tier 1 — draft-only  
-**Reports to:** Enterprise Orchestrator Agent  
-**Works with:** Balance & Meta Analyst Agent, Content Production Coordinator Agent, Economy Telemetry Agent  
-**Threat exposure:** Low  
-**Tools:** Read, Write, Edit, Grep, Glob, WebSearch, WebFetch  
+**Layer:** Game Studio & Live Ops (2.6)
+**Permission tier:** Tier 1 — draft-only
+**Reports to:** Enterprise Orchestrator Agent
+**Works with:** Balance & Meta Analyst Agent, Content Production Coordinator Agent, Economy Telemetry Agent
+**Threat exposure:** Low
+**Tools:** Read, Write, Edit, Grep, Glob, WebSearch, WebFetch
 
 **Mandate:** Plans the season calendar — events, drops, tournaments — coordinated with economy and content readiness.
 
@@ -308,12 +308,12 @@ For every plan:
 ```
 
 ### 11. Balance & Meta Analyst Agent
-**Layer:** Game Studio & Live Ops (2.6)  
-**Permission tier:** Tier 0 — read-only  
-**Reports to:** Enterprise Orchestrator Agent  
-**Works with:** Season Planner Agent, Economy Telemetry Agent, Player Research Agent  
-**Threat exposure:** Low  
-**Tools:** Read, Write, Edit, Grep, Glob, mcp__Dune__searchTables, mcp__Dune__searchTablesByContractAddress, mcp__Dune__createAndExecuteQuery, mcp__Dune__getExecutionResults, mcp__Dune__searchDuneDashboards, mcp__Dune__searchDuneQueries  
+**Layer:** Game Studio & Live Ops (2.6)
+**Permission tier:** Tier 0 — read-only
+**Reports to:** Enterprise Orchestrator Agent
+**Works with:** Season Planner Agent, Economy Telemetry Agent, Player Research Agent
+**Threat exposure:** Low
+**Tools:** Read, Write, Edit, Grep, Glob, mcp__Dune__searchTables, mcp__Dune__searchTablesByContractAddress, mcp__Dune__createAndExecuteQuery, mcp__Dune__getExecutionResults, mcp__Dune__searchDuneDashboards, mcp__Dune__searchDuneQueries
 
 **Mandate:** Analyzes win rates, item utility, and economy stress signals to recommend balance changes.
 
@@ -333,12 +333,12 @@ For every analysis:
 ```
 
 ### 12. Player Research Agent
-**Layer:** Product (2.4)  
-**Permission tier:** Tier 0 — read-only  
-**Reports to:** Enterprise Orchestrator Agent  
-**Works with:** Roadmap & Prioritization Agent, Balance & Meta Analyst Agent, Winback & Lifecycle Agent  
-**Threat exposure:** Low-Medium — synthesizes public community sentiment alongside internal data  
-**Tools:** Read, Write, Edit, Grep, Glob, WebSearch, WebFetch, mcp__Dune__searchTables, mcp__Dune__searchTablesByContractAddress, mcp__Dune__createAndExecuteQuery, mcp__Dune__getExecutionResults, mcp__Dune__searchDuneDashboards, mcp__Dune__searchDuneQueries  
+**Layer:** Product (2.4)
+**Permission tier:** Tier 0 — read-only
+**Reports to:** Enterprise Orchestrator Agent
+**Works with:** Roadmap & Prioritization Agent, Balance & Meta Analyst Agent, Winback & Lifecycle Agent
+**Threat exposure:** Low-Medium — synthesizes public community sentiment alongside internal data
+**Tools:** Read, Write, Edit, Grep, Glob, WebSearch, WebFetch, mcp__Dune__searchTables, mcp__Dune__searchTablesByContractAddress, mcp__Dune__createAndExecuteQuery, mcp__Dune__getExecutionResults, mcp__Dune__searchDuneDashboards, mcp__Dune__searchDuneQueries
 
 **Mandate:** Produces segment insights across web2 and crypto-native player bases to inform product and economy decisions.
 
@@ -358,12 +358,12 @@ For every research task:
 ```
 
 ### 13. On-chain Analytics Agent
-**Layer:** Data, Analytics, Experimentation (2.11)  
-**Permission tier:** Tier 0 — read-only  
-**Reports to:** Enterprise Orchestrator Agent  
-**Works with:** Forecasting Agent, Whale & Concentration Monitor, Anti-Wash-Trade Agent  
-**Threat exposure:** Medium — reads on-chain data including malicious token metadata/calldata (Section 8-A)  
-**Tools:** mcp__Dune__searchTables, mcp__Dune__searchTablesByContractAddress, mcp__Dune__createAndExecuteQuery, mcp__Dune__getExecutionResults, mcp__Dune__searchDuneDashboards, mcp__Dune__searchDuneQueries, Read, Write, Edit, Grep, Glob  
+**Layer:** Data, Analytics, Experimentation (2.11)
+**Permission tier:** Tier 0 — read-only
+**Reports to:** Enterprise Orchestrator Agent
+**Works with:** Forecasting Agent, Whale & Concentration Monitor, Anti-Wash-Trade Agent
+**Threat exposure:** Medium — reads on-chain data including malicious token metadata/calldata (Section 8-A)
+**Tools:** mcp__Dune__searchTables, mcp__Dune__searchTablesByContractAddress, mcp__Dune__createAndExecuteQuery, mcp__Dune__getExecutionResults, mcp__Dune__searchDuneDashboards, mcp__Dune__searchDuneQueries, Read, Write, Edit, Grep, Glob
 
 **Mandate:** Analyzes wallet-behavior cohorts, retention, and liquidity from on-chain data; the company's primary Dune-based analytics agent.
 
@@ -384,12 +384,12 @@ Rules:
 ```
 
 ### 14. Treasury Ops Agent
-**Layer:** Finance, Accounting & Treasury (2.2)  
-**Permission tier:** Tier 1 — draft-only  
-**Reports to:** Risk Committee Agent  
-**Works with:** FP&A Agent, On-chain Reconciliation Agent, Sink/Source Simulator Agent  
-**Threat exposure:** Low — internal financial data, but any live version must never share context with input-exposed agents (Section 8-B-5)  
-**Tools:** Read, Write, Edit, Grep, Glob, mcp__Dune__searchTables, mcp__Dune__searchTablesByContractAddress, mcp__Dune__createAndExecuteQuery, mcp__Dune__getExecutionResults, mcp__Dune__searchDuneDashboards, mcp__Dune__searchDuneQueries (plus a real treasury/custody MCP integration — not present in this build; see note)  
+**Layer:** Finance, Accounting & Treasury (2.2)
+**Permission tier:** Tier 1 — draft-only
+**Reports to:** Risk Committee Agent
+**Works with:** FP&A Agent, On-chain Reconciliation Agent, Sink/Source Simulator Agent
+**Threat exposure:** Low — internal financial data, but any live version must never share context with input-exposed agents (Section 8-B-5)
+**Tools:** Read, Write, Edit, Grep, Glob, mcp__Dune__searchTables, mcp__Dune__searchTablesByContractAddress, mcp__Dune__createAndExecuteQuery, mcp__Dune__getExecutionResults, mcp__Dune__searchDuneDashboards, mcp__Dune__searchDuneQueries (plus a real treasury/custody MCP integration — not present in this build; see note)
 
 **Mandate:** Proposes rebalancing, stablecoin exposure, and yield policy; requires a real multisig/MPC signer integration before it can execute — spec is draft/recommend-only until that exists.
 
@@ -410,12 +410,12 @@ For every recommendation:
 ```
 
 ### 15. Token Inventory & Unlock Calendar Agent
-**Layer:** Finance, Accounting & Treasury (2.2)  
-**Permission tier:** Tier 0 — read-only  
-**Reports to:** Enterprise Orchestrator Agent  
-**Works with:** Treasury Ops Agent, FP&A Agent, Whale & Concentration Monitor  
-**Threat exposure:** Low  
-**Tools:** Read, Write, Edit, Grep, Glob, mcp__Dune__searchTables, mcp__Dune__searchTablesByContractAddress, mcp__Dune__createAndExecuteQuery, mcp__Dune__getExecutionResults, mcp__Dune__searchDuneDashboards, mcp__Dune__searchDuneQueries  
+**Layer:** Finance, Accounting & Treasury (2.2)
+**Permission tier:** Tier 0 — read-only
+**Reports to:** Enterprise Orchestrator Agent
+**Works with:** Treasury Ops Agent, FP&A Agent, Whale & Concentration Monitor
+**Threat exposure:** Low
+**Tools:** Read, Write, Edit, Grep, Glob, mcp__Dune__searchTables, mcp__Dune__searchTablesByContractAddress, mcp__Dune__createAndExecuteQuery, mcp__Dune__getExecutionResults, mcp__Dune__searchDuneDashboards, mcp__Dune__searchDuneQueries
 
 **Mandate:** Tracks token inventory, vesting, and unlock schedules; forecasts supply-side pressure.
 
@@ -435,12 +435,12 @@ For every task:
 ```
 
 ### 16. Support Triage Agent
-**Layer:** Player Support, Trust & Safety, Anti-Cheat (2.10)  
-**Permission tier:** Tier 1 — draft-only  
-**Reports to:** Enterprise Orchestrator Agent  
-**Works with:** Knowledge Base Agent, Fraud & Abuse Agent, Anti-Cheat Agent  
-**Threat exposure:** High — reads attacker-authored text daily (Section 8-A)  
-**Tools:** Read, Write, Edit, Grep, Glob  
+**Layer:** Player Support, Trust & Safety, Anti-Cheat (2.10)
+**Permission tier:** Tier 1 — draft-only
+**Reports to:** Enterprise Orchestrator Agent
+**Works with:** Knowledge Base Agent, Fraud & Abuse Agent, Anti-Cheat Agent
+**Threat exposure:** High — reads attacker-authored text daily (Section 8-A)
+**Tools:** Read, Write, Edit, Grep, Glob
 
 **Mandate:** Triages wallet issues, purchase problems, and account recovery requests from players; draft-only per Section 8's High-exposure classification.
 
@@ -461,12 +461,12 @@ Rules:
 ```
 
 ### 17. Moderation & Scam Triage Agent
-**Layer:** Community, Social, and Reputation (2.8)  
-**Permission tier:** Tier 1 — draft-only  
-**Reports to:** Enterprise Orchestrator Agent  
-**Works with:** Community Ops Agent, Sentiment & Theme Agent, Fraud & Abuse Agent  
-**Threat exposure:** High — reads attacker-authored text daily (Section 8-A)  
-**Tools:** Read, Write, Edit, Grep, Glob, WebSearch, WebFetch  
+**Layer:** Community, Social, and Reputation (2.8)
+**Permission tier:** Tier 1 — draft-only
+**Reports to:** Enterprise Orchestrator Agent
+**Works with:** Community Ops Agent, Sentiment & Theme Agent, Fraud & Abuse Agent
+**Threat exposure:** High — reads attacker-authored text daily (Section 8-A)
+**Tools:** Read, Write, Edit, Grep, Glob, WebSearch, WebFetch
 
 **Mandate:** Monitors community channels for impersonation, phishing, and scam activity; High-exposure, draft/flag-only agent.
 
@@ -487,12 +487,12 @@ Rules:
 ```
 
 ### 18. Campaign Agent
-**Layer:** Growth Marketing (2.9)  
-**Permission tier:** Tier 1 — draft-only  
-**Reports to:** Enterprise Orchestrator Agent  
-**Works with:** Content Agent, Performance Marketing Agent, Influencer/Streamer Outreach Agent  
-**Threat exposure:** Low-Medium — researches public market/competitor content  
-**Tools:** Read, Write, Edit, Grep, Glob, WebSearch, WebFetch  
+**Layer:** Growth Marketing (2.9)
+**Permission tier:** Tier 1 — draft-only
+**Reports to:** Enterprise Orchestrator Agent
+**Works with:** Content Agent, Performance Marketing Agent, Influencer/Streamer Outreach Agent
+**Threat exposure:** Low-Medium — researches public market/competitor content
+**Tools:** Read, Write, Edit, Grep, Glob, WebSearch, WebFetch
 
 **Mandate:** Plans season-launch playbooks, collabs, and acquisition campaigns.
 
@@ -512,12 +512,12 @@ For every campaign plan:
 ```
 
 ### 19. Marketplace Ops Agent
-**Layer:** NFTs, Marketplace & Creator Ecosystem (2.7)  
-**Permission tier:** Tier 1 — draft-only  
-**Reports to:** Enterprise Orchestrator Agent  
-**Works with:** Drop Strategy Agent, Metadata & Standards Agent, Anti-Wash-Trade Agent  
-**Threat exposure:** Medium — listing/metadata can carry embedded content from creators (Section 8-A)  
-**Tools:** Read, Write, Edit, Grep, Glob, mcp__Dune__searchTables, mcp__Dune__searchTablesByContractAddress, mcp__Dune__createAndExecuteQuery, mcp__Dune__getExecutionResults, mcp__Dune__searchDuneDashboards, mcp__Dune__searchDuneQueries  
+**Layer:** NFTs, Marketplace & Creator Ecosystem (2.7)
+**Permission tier:** Tier 1 — draft-only
+**Reports to:** Enterprise Orchestrator Agent
+**Works with:** Drop Strategy Agent, Metadata & Standards Agent, Anti-Wash-Trade Agent
+**Threat exposure:** Medium — listing/metadata can carry embedded content from creators (Section 8-A)
+**Tools:** Read, Write, Edit, Grep, Glob, mcp__Dune__searchTables, mcp__Dune__searchTablesByContractAddress, mcp__Dune__createAndExecuteQuery, mcp__Dune__getExecutionResults, mcp__Dune__searchDuneDashboards, mcp__Dune__searchDuneQueries
 
 **Mandate:** Manages listings, royalty configuration, and collection QA on the marketplace.
 
@@ -537,12 +537,12 @@ For every collection or listing:
 ```
 
 ### 20. Regulatory Research Agent
-**Layer:** Legal, Compliance & Policy (2.3)  
-**Permission tier:** Tier 0 — read-only  
-**Reports to:** Enterprise Orchestrator Agent  
-**Works with:** Marketing Compliance Agent, Policy Authoring Agent, Litigation/Incident Documentation Agent  
-**Threat exposure:** High — browses the open web, a classic poisoned-page injection surface (Section 8-A)  
-**Tools:** WebSearch, WebFetch, Read, Write, Edit, Grep, Glob  
+**Layer:** Legal, Compliance & Policy (2.3)
+**Permission tier:** Tier 0 — read-only
+**Reports to:** Enterprise Orchestrator Agent
+**Works with:** Marketing Compliance Agent, Policy Authoring Agent, Litigation/Incident Documentation Agent
+**Threat exposure:** High — browses the open web, a classic poisoned-page injection surface (Section 8-A)
+**Tools:** WebSearch, WebFetch, Read, Write, Edit, Grep, Glob
 
 **Mandate:** Produces jurisdiction briefs and change alerts on Web3-relevant regulation.
 
@@ -563,12 +563,12 @@ Rules:
 ```
 
 ### 21. Agent Eval & Registry Agent
-**Layer:** Agent Lifecycle & Evaluation (Section 7)  
-**Permission tier:** Tier 1 — draft-only  
-**Reports to:** Risk Committee Agent  
-**Works with:** Quality Gate Agent, Every agent (as evaluee), Red Team Agent  
-**Threat exposure:** Low — evaluates other agents' logged outputs, not raw external input directly  
-**Tools:** Read, Write, Edit, Grep, Glob  
+**Layer:** Agent Lifecycle & Evaluation (Section 7)
+**Permission tier:** Tier 1 — draft-only
+**Reports to:** Risk Committee Agent
+**Works with:** Quality Gate Agent, Every agent (as evaluee), Red Team Agent
+**Threat exposure:** Low — evaluates other agents' logged outputs, not raw external input directly
+**Tools:** Read, Write, Edit, Grep, Glob
 
 **Mandate:** Maintains the agent registry, runs eval suites (golden/adversarial/refusal) on every agent, publishes scorecards, and flags drift — the HR + QA function for an agent-only company.
 
@@ -595,7 +595,7 @@ Three agents — **Treasury Ops**, **DevOps/SRE**, and the execution side of **S
 
 ## 6. Next steps toward the full ~80-agent network
 
-This build covers the MVP-21. The remaining agents from the full framework (Governance's Quality Gate & Red Team; Finance's FP&A, On-chain Reconciliation, Payments/Offramp, Cost Optimization; Legal's Marketing Compliance, Contract & Vendor, Privacy & Data Policy, Litigation Documentation; the rest of Product, Engineering, Live Ops, NFT, Community, Growth, Support, Data, and Specialist layers) follow the same card format and can be built out next in priority order — natural next batch is **Quality Gate Agent, Red Team Agent, FP&A Agent, and Marketing Compliance Agent**, since several MVP-21 agents already reference them as review/escalation partners.
+This build covers the MVP-21. The remaining agents from the full framework (Governance's Quality Gate & Red Team; Finance's FP&A, On-chain Reconciliation, Payments/Offramp, Cost Optimization; Legal's Contract & Vendor, Privacy & Data Policy, Litigation Documentation; the rest of Product, Engineering, Live Ops, NFT, Community, Growth, Support, Data, and Specialist layers) follow the same card format and can be built out next in priority order — natural next batch is **Quality Gate Agent, Red Team Agent, and FP&A Agent**, since several MVP-21 agents already reference them as review/escalation partners. (Marketing Compliance Agent, also originally on this list, was built in Section 12.)
 
 ## 7. Live demo — two of these agents actually working together
 
@@ -666,8 +666,144 @@ The build request specifically noted that X/Twitter alone isn't enough — imper
 
 Robinhood Chain turned out to be real and current — Robinhood's own Arbitrum-Orbit-based L2, mainnet launched July 2026 (chain ID 4663, confirmed from `docs.robinhood.com` — High confidence). The agent found an actual live upcoming mint, **Gogh Punks** (10,000 pixel portraits, 0.003 ETH, 20/wallet cap, minting Aug 14 2026), sourced from an NFT drop calendar.
 
-Where it correctly stopped short: the calendar page displayed the contract address truncated (`0xe0f9....5ffadf6`). Rather than guess the missing characters, it cross-checked against the OpenSea API, which returned the full address and matched the visible prefix/suffix — but flagged that both sources ultimately trace through OpenSea's own listing, which isn't full independent verification, and that the project's own site failed to load during research. The mint function/ABI was left `null` rather than assumed. The resulting entry in `approved-mints.example.json` is genuinely useful — chain config, price, supply, and timing are solid — but is explicitly marked `humanVerificationRequired: true` with the exact two steps needed (check `goghpunks.xyz` directly, confirm verified-contract status on the block explorer) before anyone should even consider it for a live run.
+Where it correctly stopped short (at the time): the calendar page displayed the contract address truncated (`0xe0f9....5ffadf6`). Rather than guess the missing characters, it cross-checked against the OpenSea API, which returned the full address and matched the visible prefix/suffix — but flagged that both sources ultimately trace through OpenSea's own listing, which isn't full independent verification, and that the project's own site failed to load during research. The mint function/ABI was left `null` rather than assumed. The user subsequently confirmed the contract address directly (project site + Blockscout) and supplied the real fee recipient read live from the SeaDrop contract, which closed out the entry to dry-run-ready. See Section 10 for what changed in this agent's autonomy after that, and Section 11 for how the resulting dry-run failure was actually diagnosed and fixed.
 
 ### Implementation
 
 No separate executable — this agent's work *is* live research reasoning plus writing structured output, so it's a subagent (system prompt), not a script, unlike Mint Execution. `mint-agent/src/validateTarget.js` provides the machine-checkable half: structural validation (valid address format, required fields present, `dryRun` still `true`) that runs against any draft before a human reviews it — reused across both agents' outputs.
+
+## 10. Post-MVP addition: unattended watch mode + increased Mint Intelligence autonomy
+
+Added 2026-08-14, in direct response to the request "I'm still pivotal in the workflow loop — how do I grant full permission to allow uninterrupted progress?" Rather than remove the safety gates wholesale, this was scoped to exactly two things, chosen with the user: (1) let the mint-execution engine run unattended, and (2) let Mint Intelligence close out its own research instead of blocking on a human for every ambiguous field. Two checkpoints were deliberately left untouched — see "What stayed in place" below.
+
+### 1. Unattended execution — `watch` mode
+
+`mint-agent/src/index.js watch` is a new long-running command (implementation: `watchRunner.js` + `watchState.js`) that polls `approved-mints.json` every 15s and auto-launches any target with a new opt-in field, `"watchEnabled": true`, exactly once — even across restarts, crashes, or Task Scheduler re-launches, via a persisted `state/watch-state.json` fired-log. Each target's own `trigger` (immediate/timestamp/blockNumber/pollContract) still governs exactly when it fires; `watch` only removes the need for a human to be the one typing the run command at that moment. Windows Task Scheduler setup instructions are in `mint-agent/README.md` so this can start automatically at login.
+
+`watchEnabled` is intentionally a separate, per-target, deliberate opt-in — the same design pattern as `acknowledgeMultiWalletAllowlist` — rather than "watch everything in the file." `validateTarget.js` now warns (not blocks) if `watchEnabled:true` is paired with an `"immediate"` trigger, since that combination fires the instant the watcher next polls a saved file.
+
+Tested: 9 new unit tests (`test/watchRunner.test.js`) covering the fire-once/opt-in selection logic and state-file persistence/corruption-recovery, plus a full end-to-end smoke test against the existing mock-RPC harness confirming a watch-mode dry run completes and a second watcher process does not re-fire an already-fired target. 17/17 tests passing (9 new + 8 pre-existing `policyGuard` tests).
+
+### 2. Mint Intelligence: research autonomy over blocking
+
+Previously, any field the agent couldn't fully verify (e.g. `mintArgs`'s `minterIfNotPayer` convention) was left blank with `humanVerificationRequired: true`, requiring a human round-trip before the draft was usable even for a dry run. The agent now:
+
+- Has read-only Bash access, so it can call a contract's own view functions (e.g. SeaDrop's `getPublicDrop`/`getFeeRecipientIsAllowed`) directly instead of asking a human to run a script and paste back the output. Hard-scoped to `.call()`/view functions only — never `estimateGas`, `sendTransaction`, or any wallet/private-key access; still Tier 0.
+- Makes explicit, labeled, reasoned best-guesses on genuinely ambiguous *argument values* once a function's real signature is verified (grounded in stated protocol convention, never invented from nothing), and proceeds to a dry-run-ready draft rather than stopping.
+- Still treats the dry run itself as the real safety net for a wrong guess — a bad guess fails a simulation, not a live transaction.
+
+**One rule was explicitly kept absolute and was not loosened:** the agent still never fabricates or completes a contract address, and still never invents a mint function signature it can't verify from real contract source — those two are the one category where a wrong guess bypasses the dry-run safety net entirely (it would only be caught once dryRun is separately flipped to false). `_verification.humanVerificationRequired` is now `true` only when a contract address or function signature is genuinely left blank — not merely because some field was a reasoned guess.
+
+### What stayed in place (explicitly, by the user's own framing of the request)
+
+The user's ask was scoped to unattended running plus research autonomy — not to removing the two actual money-at-risk checkpoints:
+
+- **`dryRun: false` is still a separate, manual, per-target human decision.** Nothing `watchEnabled` or Mint Intelligence produces can flip this; `validateTarget.js` still hard-fails a freshly-drafted target unless `dryRun` is `true`.
+- **`acknowledgeMultiWalletAllowlist` and `watchEnabled` are still things only a human sets** — Mint Intelligence is explicitly forbidden from setting either, same as it was already forbidden from touching `wallets.json` or `dryRun`.
+
+This keeps the actual irreversible step — real gas spent, a real on-chain mint — behind a deliberate human action, while removing the friction that was actually costing the user time: babysitting a terminal window at trigger time, and manually confirming things the agent can now verify itself.
+
+## 11. Post-MVP addition: diagnostic bridge + resolving the Gogh Punks dry-run failure
+
+Added 2026-08-14. Neither this sandbox nor the device-bridge VM it can reach on the user's machine has network access to live chain RPCs — only the user's own PowerShell does. `mint-agent/bridge/watch-bridge.ps1` closes that gap for read-only diagnostics: the user starts it once, and it polls for small JSON request files, runs only a fixed allowlist of read-only scripts (`inspectDrop.js`, `validateTarget.js`), and writes results back — all file-based, no shell access granted to the agent itself. `index.js` (`run`/`watch`) is permanently excluded from the allowlist, so nothing reachable through this bridge can ever broadcast a transaction, independent of any config state. Every request/response is logged to `bridge/bridge-log.jsonl`.
+
+Using it immediately paid off: a live `getPublicDrop()` read on the Gogh Punks SeaDrop contract found two real bugs behind the "missing revert data" dry-run failure, neither of which was the `minterIfNotPayer` guess everyone suspected —
+
+- **`valueEth` was 10x too high** (configured `0.003` ETH vs. the live `mintPrice` of `0.0003` ETH).
+- **The trigger timestamp was exactly one day early** (drop-calendar said Aug 14 23:15 UTC; the contract's actual `startTime` is Aug 15 23:15 UTC).
+- A side effect surfaced too: `trigger.mode` had been locally changed to `"immediate"` at some point, which is *why* the dry run attempted the mint at all instead of waiting.
+
+Both `approved-mints.json` and `approved-mints.example.json` were corrected, `trigger.mode` was reset to `"timestamp"` with the verified value, and `_verification` was updated to reflect that these are now live-confirmed facts, not drop-calendar guesses (`humanVerificationRequired` correctly `false` — only `minterIfNotPayer`'s convention remains an unverified guess, and no on-chain read can settle that one). `validateTarget.js`'s own warning logic was also tightened at the same time: it now checks a `blankFields` array rather than treating any `humanVerificationRequired: false` as suspicious, since that's the correct state once fields are actually confirmed, not a shortcut.
+
+## 12. Post-MVP addition: Bag-Work Content Agents + Marketing Compliance Agent
+
+Added 2026-08-14, in response to a direct build request: agents to handle "bag work" — creating meme or narrative content around a project the company has already invested in. The company's 24th, 25th, and 26th agents.
+
+**bag-work-meme** and **bag-work-narrative** — Tier 1, draft-only. Draft meme concepts/captions and longer-form narrative content respectively into `bagwork-agent/content-queue.json`, always as `dryRun: true` / `complianceApproved: false`. Neither can post or approve its own content.
+
+**marketing-compliance** — Tier 1, draft/approve-only (the agent named as a future build in Section 6, built now because the bag-work agents needed a real reviewer, not a placeholder). The only agent that can set `complianceApproved: true`, and only after actual review — disclosure accuracy, implied-certainty framing, impersonation risk — never a rubber stamp. Can never set `dryRun: false`; that stays a separate human decision.
+
+### Why disclosure is the load-bearing design choice
+
+The request was explicit that this is about promoting something already held — that's exactly the pattern where undisclosed promotion becomes a real problem, not just a style issue. So the design makes disclosure structurally hard to skip rather than trusting every draft to remember it: every content item requires a non-empty, substantive `disclosure` field (checked against actual disclosure language — "DYOR!" doesn't count), and it's concatenated into the literal posted text, not just carried as internal metadata.
+
+### Real posting, deliberately double-gated
+
+The user chose real posting integration over draft-only (unlike everything else in this build without live credentials). `bagwork-agent/` genuinely calls the X API v2 (hand-rolled OAuth 1.0a signing — percent-encoding spot-checked against Twitter's own published worked example) and a Discord webhook. Nothing posts live until **both** `dryRun: false` and `complianceApproved: true` are independently true on that item — mirroring mint-agent's `dryRun` + `acknowledgeMultiWalletAllowlist` pattern, applied to public speech instead of transactions. `complianceGuard.js` runs a deterministic first pass (guaranteed-return language, "can't lose"/"risk-free" claims, certain-future-price claims, high-pressure urgency, length limits) — explicitly documented as illustrative, not exhaustive; `marketing-compliance`'s judgment-level review is what actually closes the gap.
+
+### Implementation
+
+`bagwork-agent/` — Node.js, only new dependency is `dotenv` (OAuth1 HMAC-SHA1 signing hand-rolled with Node's built-in `crypto`, same minimal-dependency posture as mint-agent). Key pieces: `complianceGuard.js` (15 unit tests), `oauth1.js` (X API request signing), `poster.js` (the actual X/Discord calls, dry-run-aware), `validateContent.js` (structural draft validator, same role as mint-agent's `validateTarget.js`). End-to-end tested against local mock X/Discord servers (`test/mock-social-api.cjs`) — confirmed: dry run never hits the network even for fully-compliant content; a real post is refused if either gate is unmet, independently; a clean, approved item actually posts, with the disclosure verifiably present in the transmitted text and the OAuth1 `Authorization` header verifiably attached.
+
+**Not yet built:** image generation (agents write meme concepts in words, not pixels), any scheduling/auto-posting equivalent to mint-agent's `watch` mode (a deliberate scope decision — autonomously publishing disclosed-financial-interest public content is a bigger step than autonomously running a pre-configured mint, and deserves its own conversation before building, not a default extension of an existing pattern).
+
+## 13. Post-MVP addition: real X/Discord credentials wired in, first marketing-compliance review, automatic review handoff
+
+Added 2026-08-15. Two changes, both direct continuations of Section 12's build.
+
+### 1. Real posting credentials live
+
+The user obtained real X API v2 OAuth 1.0a credentials (Developer Portal → app → Keys & Tokens: Consumer Key/Secret regenerated together as the "API Key"/"API Key Secret" pair once app permissions were confirmed as Read+Write; Access Token/Secret generated fresh under the same scope) and a Discord webhook URL, and filled both into `bagwork-agent/.env` on their machine. `bagwork-agent`'s posting path (`oauth1.js` + `poster.js`) is now wired to real credentials for the first time — no code changes were needed, since the module was built and tested against mock servers from the start.
+
+### 2. First real marketing-compliance review — rejected, not a rubber stamp
+
+Ran the first actual review of the example draft, `gogh-punks-mint-day-meme`. The deterministic `complianceGuard.js` pass came back clean (disclosure present, no banned phrases, 192 chars). The judgment-level review caught something the automated pass structurally can't: the draft's disclosure states "we hold Gogh Punks NFTs and are minting more" as present-tense fact, but cross-checking `mint-agent/logs/mint-log.jsonl` and `approved-mints.json` showed the `gogh-punks-robinhood` target is still `dryRun:true`, both dry-run attempts on 2026-08-14 failed simulation or were still waiting on the trigger, and the corrected mint window (2026-08-15T23:15:00Z) hadn't fired yet as of review time — the company does not currently hold any Gogh Punks NFTs. This is exactly the "disclosure that looks compliant while being false" failure mode Section 12's design was built to catch: `complianceApproved` stays `false`, with the finding and two concrete fix options (hold the post until a real mint confirms on-chain, or rewrite the disclosure to state intent rather than current holdings) written into the item's `complianceNotes`.
+
+### 3. Compliance review is now an automatic workflow step, not a per-request ask
+
+The user asked for the review step to run automatically going forward. Implemented at the orchestration level, not by widening any agent's tool access: `bag-work-meme.md` and `bag-work-narrative.md`'s workflow sections now instruct that as soon as a draft validates, the very next step in the same session is a `marketing-compliance` review of that item — without waiting for the user to separately ask. `CLAUDE.md`'s working conventions and `marketing-compliance.md` were both updated to state this as a standing instruction. This automates *only* the review-request step; it changes nothing about what the review can conclude (still a genuine review, can still reject) or about who can set `dryRun:false` (still a separate, manual, human-only edit — unaffected by this change, consistent with every other automation decision in this build).
+
+## 14. Post-MVP addition: airdrop-corrected disclosure, real image attachments for bag-work posts
+
+Added 2026-08-15, directly following Section 13's first review.
+
+### 1. Disclosure corrected — the company already holds Gogh Punks, via airdrop, not the pending mint
+
+The user clarified that the company holds Gogh Punks NFTs already, received via the creator's own airdrop — a different, real holding from the not-yet-executed `gogh-punks-robinhood` mint (still `dryRun:true`) that Section 13's rejection was about. `marketing-compliance` re-reviewed with this new fact: disclosure rewritten to "we hold Gogh Punks NFTs (received via the creator's airdrop) and intend to mint more when the public mint opens" — a present-tense holding claim that's now accurate, with the mint claim correctly kept as future intent rather than fact. `complianceGuard.js` clean (259/280 chars), judgment review passed on all points (disclosure accuracy, no implied certainty, no impersonation, factual accuracy against mint-agent's live-verified figures, platform fit). `complianceApproved` flipped to `true` — the first real approval in this build, not just a rejection.
+
+This is a good illustration of why the review step exists as a genuine check rather than a formality: the same item went from rejected to approved not because anything about the code changed, but because the underlying fact changed and the review caught both the false version and, later, correctly validated the true one.
+
+### 2. Real image attachments — `mediaFile`
+
+`bagwork-agent` previously shipped no way to attach an actual image; `mediaConcept` was text-only, for a human to eventually turn into pixels. This build adds a `mediaFile` field (a local path to an image) and wires it all the way through:
+
+- **`src/media.js`** — hand-rolled multipart/form-data construction (no new dependency, same minimal-footprint posture as the rest of the project). Uploads to X's v1.1 media endpoint (still required — v2 has no upload endpoint of its own) via the simple single-request flow, using the existing OAuth1 signer unchanged (multipart bodies aren't form-urlencoded, so — consistent with the JSON-tweet-endpoint signing already in place — only `oauth_*` params are signed, not the multipart fields). Also builds Discord's documented `payload_json` + `files[n]` multipart format for webhook attachments.
+- **`poster.js`** — if an item declares `mediaFile`: uploads first and attaches the resulting `media_id` to the v2 tweet for X; switches the Discord webhook POST from JSON to multipart with the file attached. A real post refuses outright, before any network call, if `mediaFile` is set but the file doesn't exist on disk — same fail-closed posture as every other gate in this project. Dry run reports found/missing without uploading anything.
+- **Tests:** `test/poster.test.js` extended with 4 new cases against an extended `test/mock-social-api.cjs` (which now also mocks the X media-upload endpoint and parses real multipart bodies for assertions) — dry run with existing media reports it without uploading; a real post with missing media is refused pre-network; a real X post uploads the file and correctly references its `media_id` on the tweet; a real Discord post sends genuine multipart with the file attached. 11/11 `poster.test.js` cases passing (7 pre-existing + 4 new).
+
+### 3. No AI image generation — an original illustration was hand-built instead, once, for the Gogh Punks item
+
+This project still has no image-generation API integration. For the one live item needing an image, `scripts/make_gogh_punks_meme.py` (Python + Pillow, no network) draws an **original** flat/pixel-art illustration in the same three-character comedic structure as the "Distracted Boyfriend" meme format, rather than using the real photo — that photo is a licensed Shutterstock image whose owner has pursued unlicensed commercial use before, which is a real risk for a company whose whole point is generating public promotional content. The generated image (`bagwork-agent/media/gogh-punks-mint-day-meme.png`) captions the mint page with the live-verified supply and price (10,000 pixel portraits, 0.0003 ETH), reviewed by `marketing-compliance` alongside the text for the same accuracy/impersonation checks. This is a one-off production script, not an agent capability — `bag-work-meme`/`bag-work-narrative` still don't generate images themselves; a `mediaFile` has to point at an image that already exists, by this kind of script or any other source the company has the rights to use.
+
+## 15. Post-MVP addition: Grok (xAI) image-generation hookup for bag-work content
+
+Added 2026-08-16, in response to a direct build request to keep the hand-drawn illustration approach available while adding a real AI image-generation option. Extends Section 14's `mediaFile` support with an actual generation path, rather than requiring every image to be hand-made.
+
+### 1. Why both paths stay — this isn't a replacement
+
+The user's own framing was to keep "the simplistic style" already produced (Section 14's hand-drawn `make_gogh_punks_meme.py` illustration) as a valid option, and add Grok as an additional way to produce a `mediaFile`. Nothing about `mediaFile`'s contract changed: it still just has to point at an image that exists on disk, from whatever source the company has the rights to use. The hand-drawn script stays in the repo as a zero-cost, no-API-key-required fallback — genuinely useful if xAI access lapses or a specific image calls for hand control over composition — not a deprecated first draft.
+
+### 2. Implementation — `src/imagegen.js` + the `generate-image` CLI command
+
+`node src/index.js generate-image <item-id> [prompt]` calls xAI's Grok Imagine API (`https://api.x.ai/v1/images/generations`, `POST`, `Authorization: Bearer $XAI_API_KEY`, model `grok-imagine-image-2.0`) with `response_format: "b64_json"` so the image returns inline in the response rather than as a temporary URL that could expire before it's fetched — decoded and written straight to `media/<item-id>.png`. If no `prompt` argument is given, the item's own `mediaConcept` field is used as the prompt, so a single well-written `mediaConcept` now does double duty as both the human-readable concept description and the generation prompt. On success, the result path is written back into that item's `mediaFile` field automatically (`saveQueue`, new in `src/config.js`).
+
+Requires a new credential, `XAI_API_KEY` in `.env` (get one from console.x.ai; xAI's published starting price is $0.02/image as of 2026-08, billed to the xAI account, separate from X/Discord credentials) — added to `.env.example` with that cost note. If xAI's own moderation flags a generation, `generateMemeImage` throws rather than silently returning a partial or blocked result — same fail-closed posture as every other gate in this project.
+
+### 3. `bag-work-meme` gets scoped `Bash` access — the first bag-work agent with any shell access
+
+To actually call the CLI command, `bag-work-meme`'s tool allowlist grew from `Read, Write, Edit, WebSearch` to include `Bash` — but scoped by its system prompt to exactly one command, `node src/index.js generate-image <item-id> [prompt]`, and nothing else: not arbitrary shell commands, not touching `.env`, not running `post` or anything that could publish or spend money. This is a prompt-enforced boundary, not a code-level one, deliberately modeled on the existing pattern `mint-intelligence` uses for its own scoped, read-only Bash access (Section 10) — the same layered-but-not-code-sandboxed posture applies here. `bag-work-meme`'s workflow now generates the image before handing off to `marketing-compliance`, and reports plainly if generation fails (missing key, moderation flag, API error) rather than silently leaving an item imageless.
+
+### 4. The IP-safety constraint now spans both image paths
+
+Section 14's reasoning against reproducing the real "Distracted Boyfriend" stock photo — a commercially licensed image whose owner has pursued unlicensed commercial use — applies identically to an AI-generated image: an image generator asked (even implicitly) to reproduce a specific named copyrighted meme template or real stock photo is the same IP exposure as using the original file. This constraint is now written directly into `bag-work-meme`'s system prompt as an absolute rule covering `mediaConcept` and any prompt passed to `generate-image` — never name a real copyrighted meme template, a real stock photo, or a real/trademarked person or character; describe the scene, characters, and labels generically instead. `marketing-compliance`'s review checklist (Section 14) gained a matching item (3a): when reviewing an item's `mediaFile`, check whether the image reads like a reproduction of a specific real template/photo/character rather than an original composition, independent of whether it came from Grok or a hand-made file — that's a rejection either way.
+
+### 5. Test coverage
+
+`test/imagegen.test.js` (new) — 4 end-to-end cases against a mock xAI endpoint added to `test/mock-social-api.cjs`: a real generation call decodes and writes actual image bytes to disk with the right auth header and model/format fields; nothing is written if `XAI_API_KEY` is missing; nothing is written if the API returns a non-2xx status; nothing is written and a clear error is thrown if xAI's own moderation flags the result. All 4 passing.
+
+### 6. What's still not built
+
+No fallback image-generation provider if xAI's API is down or a project prefers a different model — `scripts/make_gogh_punks_meme.py`'s hand-drawn approach is the only other path today, by design (Section 1 above), not as a gap to close. No prompt-level content filter in `imagegen.js` itself beyond surfacing xAI's own moderation flag — the IP-safety and no-real-people/trademarks constraints are enforced entirely by `bag-work-meme`'s system prompt (per point 4), consistent with how every other content-safety rule in this build is prompt-enforced rather than code-enforced.
+
+---
+</content>

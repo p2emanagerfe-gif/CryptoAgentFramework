@@ -45,15 +45,41 @@ export function validateTargetShape(targetName, target) {
     );
   }
 
+  if (target.watchEnabled === true) {
+    warnings.push(
+      "watchEnabled is true — the unattended watcher will launch this target on its own once its trigger fires, with no human present at that moment. Confirm the trigger, dryRun, and mintArgs are all exactly what you want before leaving this set."
+    );
+    if ((target.trigger?.mode ?? "immediate") === "immediate") {
+      warnings.push(
+        "watchEnabled + trigger.mode \"immediate\" means the watcher fires this the instant it next polls approved-mints.json — effectively as soon as you save the file with the watcher already running. Consider a \"timestamp\" trigger instead if that's not what you intend."
+      );
+    }
+  }
+
   if (!target._verification) {
     warnings.push("No _verification block — confidence and sources should be documented for any researched (non-hand-authored) target.");
   } else {
     const v = target._verification;
-    if (v.humanVerificationRequired !== true) {
-      warnings.push("_verification.humanVerificationRequired should be true for any drafted-not-yet-confirmed target.");
+    if (v.humanVerificationRequired === true && !(Array.isArray(v.blankFields) && v.blankFields.length > 0)) {
+      warnings.push(
+        "_verification.humanVerificationRequired is true but blankFields is empty — if everything's actually filled in and just a guess rather than blank, this should be false (guesses are the dry run's job to catch, not a human's)."
+      );
     }
-    if (!Array.isArray(v.contractAddressSources) || v.contractAddressSources.length === 0) {
-      warnings.push("_verification.contractAddressSources is empty — a contract address with no cited source shouldn't be trusted.");
+    if (v.humanVerificationRequired !== true && Array.isArray(v.blankFields) && v.blankFields.length > 0) {
+      warnings.push(
+        `_verification.blankFields is non-empty (${v.blankFields.join("; ")}) but humanVerificationRequired isn't true — a genuinely blank field should block, not just warn.`
+      );
+    }
+    // Field names vary (contractAddressSources for simple targets;
+    // nftContractAddressSources/seaDropRouterSources for router-style
+    // mints where contractAddress isn't the collection itself) — accept
+    // any *Sources array as long as at least one is actually populated.
+    const sourceArrays = Object.entries(v)
+      .filter(([key]) => key.toLowerCase().endsWith("sources"))
+      .map(([, val]) => val);
+    const hasAnySources = sourceArrays.some((arr) => Array.isArray(arr) && arr.length > 0);
+    if (!hasAnySources) {
+      warnings.push("_verification has no populated *Sources array — a contract address with no cited source shouldn't be trusted.");
     }
   }
 

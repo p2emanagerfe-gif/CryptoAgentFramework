@@ -1,0 +1,18 @@
+{
+  "_comment": "Copy to content-queue.json. Nothing posts live until dryRun is explicitly set to false AND complianceApproved is explicitly set to true for that item — both are required, independently. bag-work-meme and bag-work-narrative draft items here; they never set dryRun or complianceApproved themselves. marketing-compliance reviews drafts and is the one that sets complianceApproved. Run src/validateContent.js on any new draft before treating it as reviewable.",
+
+  "gogh-punks-mint-day-meme": {
+    "_comment": "Example draft — illustrates the required shape, including a real disclosure line. Not yet reviewed; complianceApproved is false and should stay false until an actual human (or marketing-compliance, treated as real review, not a rubber stamp) has read it.",
+    "project": "gogh-punks",
+    "type": "meme",
+    "platform": "x",
+    "body": "me refreshing the Gogh Punks mint page every 30 seconds like it's going to load faster if I want it hard enough",
+    "mediaConcept": "Distracted-boyfriend format: boyfriend labeled 'me', girlfriend labeled 'literally anything else I should be doing today', new girl walking by labeled 'gogh-punks-robinhood mint page'.",
+    "disclosure": "Disclosure: we hold Gogh Punks NFTs and are minting more. Not financial advice.",
+    "complianceApproved": false,
+    "complianceNotes": "",
+    "dryRun": true,
+    "createdBy": "bag-work-meme",
+    "createdAt": "2026-08-14"
+  }
+}

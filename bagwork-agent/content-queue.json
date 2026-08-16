@@ -1,0 +1,19 @@
+{
+  "_comment": "Copy to content-queue.json. Nothing posts live until dryRun is explicitly set to false AND complianceApproved is explicitly set to true for that item — both are required, independently. bag-work-meme and bag-work-narrative draft items here; they never set dryRun or complianceApproved themselves. marketing-compliance reviews drafts and is the one that sets complianceApproved. Run src/validateContent.js on any new draft before treating it as reviewable.",
+
+  "gogh-punks-mint-day-meme": {
+    "_comment": "Example draft — illustrates the required shape, including a real disclosure line and an attached image.",
+    "project": "gogh-punks",
+    "type": "meme",
+    "platform": "x",
+    "body": "me refreshing the Gogh Punks mint page every 30 seconds like it's going to load faster if I want it hard enough",
+    "mediaConcept": "Distracted-boyfriend-structure meme, redrawn as an original flat/pixel-art illustration (NOT the copyrighted stock photo) so it's safe to post: three panels — 'ME' (blue-shirt figure) looking back at 'GOGH-PUNKS-ROBINHOOD MINT PAGE' (glowing accent figure with a pixel-punk halo, captioned with the verified supply/price), past 'EVERYTHING ELSE I SHOULD BE DOING TODAY' (faded figure).",
+    "mediaFile": "media/gogh-punks-mint-day-meme.png",
+    "disclosure": "Disclosure: we hold Gogh Punks NFTs (received via the creator's airdrop) and intend to mint more when the public mint opens. Not financial advice.",
+    "complianceApproved": true,
+    "complianceNotes": "REVIEWED 2026-08-15 by marketing-compliance — APPROVED, after a real check, following up on the earlier REJECTED pass. What changed: the user (the actual, current holder) stated directly that the company already holds Gogh Punks NFTs via the creator's own airdrop — a different, and confirmable-by-the-user's-own-statement, holding from the not-yet-executed mint-agent mint. Disclosure was rewritten accordingly: 'we hold Gogh Punks NFTs (received via the creator's airdrop) and intend to mint more when the public mint opens' — present-tense holding claim is now accurate, and the mint claim was correctly softened to future intent (still true: gogh-punks-robinhood is dryRun:true, not yet fired). complianceGuard.js check: clean (disclosure present and substantive, no banned phrases, 259/280 chars). Judgment checks: (1) disclosure accuracy — now true per the above; (2) no implied-certainty framing — 'intend to' is honest about it not being done yet; (3) no impersonation — image and text both read as the company's own disclosed content, not organic/unaffiliated; (4) factual accuracy — image caption '10,000 pixel portraits · 0.0003 ETH' matches mint-agent's live-verified approved-mints.json figures (Section 9/11 of the AOS doc), not the earlier-wrong 0.003 ETH; (5) platform-appropriate for X. Image reviewed too: an original flat/pixel-art illustration (media/gogh-punks-mint-day-meme.png), NOT a reproduction of the real 'Distracted Boyfriend' stock photo — that photo is commercially licensed and its owner has pursued unlicensed commercial use before, so this project draws its own art instead of risking that. No misleading visual claims in the image beyond what the text disclosure already covers.",
+    "dryRun": true,
+    "createdBy": "bag-work-meme",
+    "createdAt": "2026-08-14"
+  }
+}
